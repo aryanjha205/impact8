@@ -54,5 +54,11 @@ app.get('/', requireLogin, (req, res) => {
   res.redirect('/profile');
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

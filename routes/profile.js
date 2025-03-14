@@ -3,11 +3,10 @@ const router = express.Router();
 const Student = require('../models/student');
 
 // Render profile page
-router.get('/', async (req, res) => {
-  const userEmail = req.session.userEmail;
-  const student = await Student.findOne({ email: userEmail });
+router.get('/:id', async (req, res) => {
+  const student = await Student.findById(req.params.id);
   if (!student) {
-    return res.redirect('/login?error=Student not found');
+    return res.redirect('/students?error=Student not found');
   }
   res.render('profile', { student });
 });
