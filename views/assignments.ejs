@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Assignments</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <a href="#" onclick="toggleSidebar()">☰</a>
+    <a href="/students">Students</a>
+    <a href="/assignments">Assignments</a>
+    <a href="/logout">Logout</a>
+  </div>
+  <div class="content" id="content">
+    <h1>Assignments</h1>
+    <ul>
+      <% assignments.forEach(assignment => { %>
+        <li>
+          <%= assignment.studentId.name %> - <a href="<%= assignment.url %>">View Assignment</a> - Submitted at: <%= assignment.submittedAt.toDateString() %>
+          <form action="/assignments/<%= assignment._id %>?_method=DELETE" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+    <form action="/assignments" method="post">
+      <select name="studentId" required>
+        <% students.forEach(student => { %>
+          <option value="<%= student._id %>"><%= student.name %></option>
+        <% }) %>
+      </select>
+      <input type="text" name="url" placeholder="Assignment URL" required>
+      <button type="submit">Add Assignment</button>
+    </form>
+  </div>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('expanded');
+      document.getElementById('content').classList.toggle('expanded');
+    }
+  </script>
+</body>
+</html>

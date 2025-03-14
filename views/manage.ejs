@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Students and Teachers</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <a href="#" onclick="toggleSidebar()">☰</a>
+    <a href="/students">Students</a>
+    <a href="/teachers">Teachers</a>
+    <a href="/manage">Manage Students and Teachers</a>
+    <a href="/logout">Logout</a>
+  </div>
+  <div class="content" id="content">
+    <h1>Manage Students and Teachers</h1>
+    
+    <h2>Students</h2>
+    <ul>
+      <% students.forEach(student => { %>
+        <li><%= student.name %> - <%= student.age %> - <%= student.major %> - <%= student.branch %> - <%= student.semester %> - <%= student.division %> - <%= student.rollNo %> - <%= student.batch %> - <%= student.email %> - <%= student.mobileNo %> - <%= student.enrollmentNo %> - <a href="<%= student.assignmentUrl %>">Assignment</a>
+          <form action="/manage/students/<%= student._id %>?_method=DELETE" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+          <form action="/manage/students/<%= student._id %>?_method=PUT" method="post" style="display:inline;">
+            <input type="text" name="name" value="<%= student.name %>" required>
+            <input type="number" name="age" value="<%= student.age %>" required>
+            <input type="text" name="major" value="<%= student.major %>" required>
+            <input type="text" name="branch" value="<%= student.branch %>" required>
+            <input type="number" name="semester" value="<%= student.semester %>" required>
+            <input type="text" name="division" value="<%= student.division %>" required>
+            <input type="number" name="rollNo" value="<%= student.rollNo %>" required>
+            <input type="text" name="batch" value="<%= student.batch %>" required>
+            <input type="email" name="email" value="<%= student.email %>" required>
+            <input type="text" name="mobileNo" value="<%= student.mobileNo %>" required>
+            <input type="text" name="profilePhoto" value="<%= student.profilePhoto %>" placeholder="Profile Photo URL">
+            <input type="text" name="enrollmentNo" value="<%= student.enrollmentNo %>" required>
+            <input type="text" name="assignmentUrl" value="<%= student.assignmentUrl %>" placeholder="Assignment URL">
+            <button type="submit">Update</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+    <form action="/manage/students" method="post">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="number" name="age" placeholder="Age" required>
+      <input type="text" name="major" placeholder="Major" required>
+      <input type="text" name="branch" placeholder="Branch" required>
+      <input type="number" name="semester" placeholder="Semester" required>
+      <input type="text" name="division" placeholder="Division" required>
+      <input type="number" name="rollNo" placeholder="Roll No" required>
+      <input type="text" name="batch" placeholder="Batch" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="mobileNo" placeholder="Mobile No" required>
+      <input type="text" name="profilePhoto" placeholder="Profile Photo URL">
+      <input type="text" name="enrollmentNo" placeholder="Enrollment No" required>
+      <input type="text" name="assignmentUrl" placeholder="Assignment URL">
+      <button type="submit">Add Student</button>
+    </form>
+
+    <h2>Teachers</h2>
+    <ul>
+      <% teachers.forEach(teacher => { %>
+        <li><%= teacher.name %> - <%= teacher.subject %>
+          <form action="/manage/teachers/<%= teacher._id %>?_method=DELETE" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+          <form action="/manage/teachers/<%= teacher._id %>?_method=PUT" method="post" style="display:inline;">
+            <input type="text" name="name" value="<%= teacher.name %>" required>
+            <input type="text" name="subject" value="<%= teacher.subject %>" required>
+            <button type="submit">Update</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+    <form action="/manage/teachers" method="post">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="text" name="subject" placeholder="Subject" required>
+      <button type="submit">Add Teacher</button>
+    </form>
+  </div>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('expanded');
+      document.getElementById('content').classList.toggle('expanded');
+    }
+  </script>
+</body>
+</html>

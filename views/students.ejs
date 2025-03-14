@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Students</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <a href="#" onclick="toggleSidebar()">☰</a>
+    <a href="/students">Students</a>
+    <a href="/teachers">Teachers</a>
+    <a href="/manage">Manage Students and Teachers</a>
+    <a href="/logout">Logout</a>
+  </div>
+  <div class="content" id="content">
+    <h1>Students</h1>
+    <form action="/students" method="get">
+      <input type="text" name="name" placeholder="Search by name">
+      <button type="submit">Search</button>
+    </form>
+    <ul>
+      <% students.forEach(student => { %>
+        <li>
+          <%= student.name %> - <%= student.age %> - <%= student.major %> - <%= student.branch %> - <%= student.semester %> - <%= student.division %> - <%= student.rollNo %> - <%= student.batch %> - <%= student.email %> - <%= student.mobileNo %> - <%= student.enrollmentNo %> - <a href="<%= student.assignment%>">Profile</a>
+        </li>
+      <% }) %>
+    </ul>
+    <a href="/assignments">Submit you Assignment</a>
+  </div>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('expanded');
+      document.getElementById('content').classList.toggle('expanded');
+    }
+  </script>
+</body>
+</html>
